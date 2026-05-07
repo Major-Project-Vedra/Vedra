@@ -1,88 +1,143 @@
-# Vedra – Emotion-Based Adaptive Learning System
+# 🎓 Vedra LMS — Complete System
 
-## 📌 Overview
-Vedra is an AI-powered adaptive learning web application that detects a student’s emotions in real time using facial expression recognition and dynamically changes the learning experience based on the detected emotion.
-
-The system uses **Face API.js** for emotion detection and the **FER2013 dataset** for facial expression recognition.
-
-- 😊 If the student is happy or engaged, the system plays the normal-paced educational video.
-- 😔 If the student appears sad or confused, the system switches to a slower-paced video with additional explanations and more examples.
-
-This helps students learn more effectively through personalized adaptive learning.
+A fully gamified Learning Management System built with **React** (frontend) and **Flask** (backend).
 
 ---
 
-# 🚀 Features
+## 🏗️ Architecture
 
-- Real-time emotion detection using webcam
-- Facial expression recognition using Face API.js
-- Adaptive learning video system
-- Automatic switching between:
-  - Normal-paced videos
-  - Slow-paced explanatory videos
-- Personalized learning experience
-- Interactive web-based interface
+```
+vedra/
+├── backend/     # Flask REST API
+└── frontend/    # React App
+```
 
 ---
 
-# 🛠️ Technologies Used
+## ⚡ Quick Start
 
-- HTML
-- CSS
-- JavaScript
-- Face API.js
-- FER2013 Dataset
-- Machine Learning Concepts
-- SQLITE
-- Python
+### 1. Backend Setup
 
----
+```bash
+cd backend
 
-# 🧠 How It Works
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
 
-1. The webcam captures the student’s facial expressions.
-2. Face API.js detects and analyzes emotions in real time.
-3. The system identifies emotions such as:
-   - Happy
-   - Sad
-   - Neutral
-   - Angry
-   - Surprise
-4. Based on the detected emotion:
-   - Happy → Plays normal learning video
-   - Sad/Confused → Plays slow-paced video with more examples
-5. The learning experience adapts automatically.
+# Install dependencies
+pip install -r requirements.txt
 
----
+# Configure environment
+cp .env.example .env
+# Edit .env — by default uses SQLite (no config needed for dev)
 
-# 📂 Dataset Used
+# Run the server
+python run.py
+# → API running at http://localhost:5000
+```
 
-This project uses the **FER2013 (Facial Expression Recognition 2013)** dataset for training and emotion recognition.
-
-## 🔗 Dataset Link
-https://www.kaggle.com/datasets/msambare/fer2013/data
-
-# 📸 Application Workflow
-
-- Student opens the learning platform.
-- Webcam starts emotion detection.
-- AI continuously analyzes facial expressions.
-- Educational content changes dynamically according to student emotions.
+**Default Admin Account (auto-seeded):**
+- Email: `admin@vedra.com`
+- Password: `Admin@123`
 
 ---
 
-# 🎯 Future Enhancements
+### 2. Frontend Setup
 
-- AI-based personalized recommendations
-- Student performance analytics
-- Emotion tracking dashboard
-- Voice emotion detection
-- Cloud database integration
-- Advanced adaptive learning algorithms
-- Custom 3D animated avatar 
+```bash
+cd frontend
+
+# Install dependencies
+npm install
+
+# Configure environment
+cp .env.example .env
+# REACT_APP_API_URL=http://localhost:5000 (default)
+
+# Start the dev server
+npm start
+# → App running at http://localhost:3000
+```
 
 ---
 
-# 📜 License
+## 🌟 Features
 
-This project is created for educational and research purposes.
+### Student
+- 📚 Browse & enroll in courses
+- 📹 Watch video lessons
+- ✅ Mark lessons complete
+- 🎯 Take quizzes & earn XP
+- 🏆 Earn badges & level up
+- 📊 Track progress
+- 🥇 Compete on leaderboard
+
+### Admin
+- ⚙️ Admin dashboard with stats
+- 📚 Create/edit/delete courses
+- 👥 Manage users (activate/deactivate)
+- 📋 View enrollment reports
+
+---
+
+## 🔌 API Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/auth/register` | Register new user |
+| POST | `/auth/login` | Login → JWT token |
+| GET | `/auth/me` | Current user profile |
+| GET | `/courses/` | List courses (with filters) |
+| POST | `/courses/` | Create course (admin) |
+| PUT | `/courses/:id` | Update course (admin) |
+| DELETE | `/courses/:id` | Delete course (admin) |
+| POST | `/enroll/` | Enroll in course |
+| GET | `/enroll/my` | My enrollments |
+| POST | `/enroll/lesson/:id/complete` | Complete lesson + earn XP |
+| GET | `/progress/analytics` | User analytics |
+| GET | `/progress/leaderboard` | XP leaderboard |
+| GET | `/quiz/:id` | Get quiz |
+| POST | `/quiz/:id/submit` | Submit quiz answers |
+| GET | `/gamify/badges` | All badges |
+| GET | `/gamify/my-badges` | User's badges |
+| GET | `/admin/dashboard` | Admin stats |
+| GET | `/admin/users` | All users |
+
+---
+
+## 🗄️ Database
+
+- **Default (dev):** SQLite (`vedra.db`) — no setup needed
+- **Production:** MySQL — set `DATABASE_URL` in `.env`
+
+```
+DATABASE_URL=mysql+pymysql://user:password@localhost/vedra_db
+```
+
+---
+
+## 🚀 Deployment
+
+### Backend
+```bash
+gunicorn -w 4 -b 0.0.0.0:5000 "app:create_app()"
+```
+
+### Frontend
+```bash
+npm run build
+# Deploy /build folder to Vercel, Netlify, or any static host
+```
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Frontend | React 18, React Router, Framer Motion |
+| Backend | Flask, Flask-JWT-Extended, SQLAlchemy |
+| Database | SQLite (dev) / MySQL (prod) |
+| Auth | JWT Tokens |
+| Styling | Custom CSS (no frameworks) |
