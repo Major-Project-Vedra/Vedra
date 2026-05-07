@@ -141,3 +141,7 @@ npm run build
 | Database | SQLite (dev) / MySQL (prod) |
 | Auth | JWT Tokens |
 | Styling | Custom CSS (no frameworks) |
+
+---
+REPORT Below⬇️
+[Vedra Team-85.docx](https://github.com/user-attachments/files/27490750/Vedra.Team-85.docx)
